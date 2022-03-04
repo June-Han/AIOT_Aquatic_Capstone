@@ -27,4 +27,5 @@ On successful installation,
         With Mask: -%         
         Without Mask : -%
  
-Follow my blog for more details:
+Details Reference:
+https://medium.com/@syed.sohaib/creating-a-classifier-using-custom-vision-api-and-consuming-it-in-a-flask-application-2ba580fd32e7
