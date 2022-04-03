@@ -86,7 +86,14 @@ def success():
             results = predictor.classify_image(
                 projectId, publish_iteration_name, image_contents.read())
             result=""
+            
+            #Checking out the output from the custom vision
+            #Prints in the log
+            print("results: \n {0} \n".format(results))
+            print("results predictions: \n {0} \n", results.predictions)
+
             for prediction in results.predictions:
+                print("prediction in results.predictions: \n {0} \n".format(prediction)) #Printing in the log
                 result += "\t\t\n" + prediction.tag_name + " : {0:.2f}% ".format(prediction.probability * 100)
 
         return render_template("result.html", result = result)  

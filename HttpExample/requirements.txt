@@ -3,3 +3,26 @@
 # Manually managing azure-functions-worker may cause unexpected issues
 
 azure-functions
+azure-cognitiveservices-vision-customvision
+azure-common
+certifi
+chardet
+click
+Flask
+future
+idna
+isodate
+itsdangerous
+Jinja2
+MarkupSafe
+msrest
+numpy
+oauthlib
+opencv-python
+pyngrok
+PyYAML
+requests
+requests-oauthlib
+six
+urllib3
+Werkzeug
