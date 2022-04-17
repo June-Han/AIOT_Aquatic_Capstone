@@ -150,7 +150,7 @@ def _update_orientation(image):
     return image
                 
 def _predict_image(image):
-    #Copy image send over http
+    #Copy image sent over http
     image_copy =  image
 
     try:
@@ -162,17 +162,17 @@ def _predict_image(image):
         _log_msg("Image size: " + str(w) + "x" + str(h))
         
         # Update orientation based on EXIF tags
-        image = _update_orientation(image)
+        updated_image = _update_orientation(image)
 
         # If the image has either w or h greater than 1600 we resize it down respecting
-        # aspect ratio such that the largest dimention is 1600
-        image = _resize_down_to_1600_max_dim(image)
+        # aspect ratio such that the largest dimension is 1600
+        downsized_image = _resize_down_to_1600_max_dim(updated_image)
 
         # Convert image to numpy array
-        image = _convert_to_nparray(image)
+        np_image = _convert_to_nparray(downsized_image)
         
         # Crop the center square and resize that square down to 256x256
-        resized_image = _extract_and_resize_to_256_square(image)
+        resized_image = _extract_and_resize_to_256_square(np_image)
 
         # Crop the center for the specified network_input_Size
         cropped_image = _crop_center(resized_image, network_input_size, network_input_size)
@@ -208,7 +208,7 @@ def _predict_image(image):
             response = {
                 'created': datetime.utcnow().isoformat(),
                 'predictedTagName': highest_prediction['tagName'],
-                'img': data,
+                #'img': data,
                 'prediction': result 
             }
 

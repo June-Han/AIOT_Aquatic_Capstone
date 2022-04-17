@@ -31,15 +31,23 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             #jsonStr = jsonresult.get_data(as_text = True)
             jsonStr = jsonresult.get_json()
             results = jsonStr
-            headers = {
+        '''
+        # returns UnboundLocalError: local variable 'my_headers' referenced before assignment
+        #Assigned directly inside the httpresponse
+        my_headers = {
                 "Content-type": "application/json",
                 "Access-Control-Allow-Origin": "*"
-            }
+        }
+        '''
         
     except Exception as e:
         logging.info(f'exception: {e}')
         pass
 
+
     #return results
     #logging.info('Image processed. Results: ' + results)
-    return func.HttpResponse(json.dumps(results), headers = headers, status_code=200)
+    return func.HttpResponse(json.dumps(results), headers = {
+                "Content-type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+        }, status_code=200)
