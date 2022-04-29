@@ -208,7 +208,7 @@ def _predict_image(image):
             response = {
                 'created': datetime.utcnow().isoformat(),
                 'predictedTagName': highest_prediction['tagName'],
-                #'img': data,
+                'img': data,
                 'prediction': result 
             }
 

@@ -1,18 +1,20 @@
 <template>
   <div class="home">
+
     <img alt="AIOT_Capstone" src="../assets/Dolphin.jpg" >
-    <HelloWorld msg="Welcome to June's Capstone Test"/>
+
+    <UploadImg msg="Welcome to June's Capstone Test"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import UploadImg from '@/components/Uploads.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    UploadImg
   }
 }
 </script>
@@ -22,6 +24,6 @@ img {
   border-radius: 25%;
   border: 5px #333 solid;
   margin-bottom: 1 rem;
-  width: 18%;
+  width: 10%;
 }
 </style>

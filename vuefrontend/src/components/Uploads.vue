@@ -3,14 +3,35 @@
 
     <h1>{{ msg }}</h1>
 
-    <input type = "file" @change="onFileSelected">
+    <input type="file" @change="onFileSelected" class="custom-file-upload">
+    <br/>
 
-    <button @click="onUpload">Upload</button>
+    <button class="btn btn-primary font-weight-bold" @click="onUpload">Upload</button>
 
     <div class="container">
-      <img :src="imgFile" v-if="imgFile" style="max-width: 100%;" />
-      <p></p>
-      <!-- import from results later -->
+      <!--<img :src="imgFile" v-if="imgFile" style="max-width: 100%;" />-->
+      <div id="displayImg">
+      </div>
+
+      <div v-if="responseData">
+        <div class="font-weight-bold">
+          Prediction: {{ responseData.predictedTagName}}
+        </div>
+        <div class="font-weight-bold"> 
+          Probability: {{ (responseData.prediction[0].probability * 100).toFixed(3)}} %
+        </div>
+      </div>
+      <div v-else class="font-weight-bold">
+        Please Upload an Image
+      </div>
+
+      
+      <!-- import from results later [Might scrap this as internal vue issue occurred] -->
+      <!--
+      <div v-if='this.responseData !==null && this.selectedFile !== null'>
+        <Results resData = 'responseData'  selectedImage = 'selectedFile'/> 
+      </div>
+      -->
     </div>
 
   </div>
@@ -19,17 +40,21 @@
 <script>
 //Axios to allow ajax requests inside the script
 import axios from 'axios';
+import Results from '@/components/Results.vue'
 
 export default {
-  name: 'HelloWorld',
+  name: 'UploadImg',
+  components: {
+    Results
+  },
   props: {
     msg: String
   },
   data () {
     return {
       selectedFile: null,
-      responseData: null,
-      imgFile: null
+      imgFile: null,
+      responseData: null
     }
   },
   methods: {
@@ -42,12 +67,13 @@ export default {
       **formdata sent file as binary and url search params sent data as object file**
       Creation of form data with the selected file from the input 
       (sending this will send the file as a binary object but as part of the multipart/formdata)
-      ==============================================================*/
+      ==============================================================*//*
       const fd = new FormData();
       fd.append('image', this.selectedFile, this.selectedFile.name)
 
       //Sending the form data as part of Params (it will be sent to the api as an object)
       const data = new URLSearchParams(fd)
+      */
 
       /*==============================================================
       Working version:
@@ -66,10 +92,11 @@ export default {
       //Response was in readable stream, so the data has to be formatted to json
       //A promise will be returned. In order to access the JSON, need await the response
       this.responseData = await res.json()
-
+    
       /*==============================================================
       This section is to load the uploaded image onto the webpage 
       ==============================================================*/
+      /*
       this.imgFile = new Image()
       var reader = new FileReader()
       //when the reader is loaded, the imgFile is assigned the reading/event result(image is read onto the web page)
@@ -78,6 +105,31 @@ export default {
       }
       //Read the uploaded file form the input as URL using the reader.
       reader.readAsDataURL(this.selectedFile) //console log return this as undefined
+      */
+
+
+      /*==============================================================
+      This section is to convert the image from Base64 received from API 
+      to an image on frontend without displaying the uploaded image from 
+      the direct source
+      ==============================================================*/
+      this.imgFile = new Image()
+      this.imgFile.src = "data:image/png;base64," + this.responseData.img
+      this.imgFile.style.width = '100%'
+
+      /*
+      Condition to check if there is any child in the div
+      If there is none, appendchild, else replacechild otherwise 
+      multiple images will appear. 
+      */
+      const element = document.getElementById("displayImg")
+      if (element.hasChildNodes())
+      {
+        element.replaceChild(this.imgFile, element.childNodes[0])
+      }
+      else {
+        element.appendChild(this.imgFile)
+      }
       
       console.log(this.responseData) //Returns a proper JSON object
       console.log(this.responseData.predictedTagName) //returns 'With Mask'
@@ -105,7 +157,6 @@ a {
   color: #42b983;
 }
 
-
 .container {
   max-width: 500px;
   margin: 30px auto;
@@ -115,4 +166,13 @@ a {
   padding: 30px;
   border-radius: 5px;
 }
+
+.custom-file-upload {
+    border: 1px solid steelblue;
+    display: inline-block;
+    padding: 15px 10%; /* vertical horizontal */
+    margin: 10px;
+    cursor: pointer;
+}
+
 </style>
