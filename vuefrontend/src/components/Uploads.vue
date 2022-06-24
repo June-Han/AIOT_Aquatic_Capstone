@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
 
-    <h1>{{ msg }}</h1>
+    <h2>{{ msg }}</h2>
 
     <input type="file" @change="onFileSelected" class="custom-file-upload">
     <br/>
@@ -39,7 +39,7 @@
 
 <script>
 //Axios to allow ajax requests inside the script
-import axios from 'axios';
+//import axios from 'axios';
 import Results from '@/components/Results.vue'
 
 export default {

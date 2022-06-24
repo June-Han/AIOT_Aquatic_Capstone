@@ -1,9 +1,10 @@
 <template>
-  <div class="home">
+  <div class="home" width="100%" height="100%">
+    <h1>AIOT solution for Coral Reef Preservation</h1>
 
-    <img alt="AIOT_Capstone" src="../assets/Dolphin.jpg" >
+    <img alt="AIOT_Capstone" src="../assets/Dolphin.jpg" />
 
-    <UploadImg msg="Welcome to June's Capstone Test"/>
+    <UploadImg msg="Machine Learning Model for Coral Health Classification Demo"/>
   </div>
 </template>
 
