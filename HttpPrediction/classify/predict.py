@@ -212,7 +212,7 @@ def _predict_image(image):
                 'prediction': result 
             }
 
-            _log_msg("Results: " + str(response))
+            #_log_msg("Results: " + str(response))
             return response
             
     except Exception as e:
