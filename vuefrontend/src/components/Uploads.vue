@@ -18,7 +18,7 @@
           Prediction: {{ responseData.predictedTagName}}
         </div>
         <div class="font-weight-bold"> 
-          Probability: {{ (responseData.prediction[0].probability * 100).toFixed(3)}} %
+          Probability: {{ (this.predictProbability * 100).toFixed(3)}} %
         </div>
       </div>
       <div v-else class="font-weight-bold">
@@ -54,7 +54,8 @@ export default {
     return {
       selectedFile: null,
       imgFile: null,
-      responseData: null
+      responseData: null,
+      predictProbability: 0
     }
   },
   methods: {
@@ -92,6 +93,27 @@ export default {
       //Response was in readable stream, so the data has to be formatted to json
       //A promise will be returned. In order to access the JSON, need await the response
       this.responseData = await res.json()
+
+      /*
+      Condition to retrieve the probability percentage as per the prediction tag name
+      Object format:
+      {
+        created (Date)
+        img (Data for base64 conversion)
+        predictedTagName (Result from the prediction)
+        prediction array (2 tags => 2 rows in array. Each row have 2 columns)
+          => probability //e.g. responseData.prediction[1].probability
+          => tagName     //e.g. responseData.prediction[1].tagName
+      }
+      */
+      let predictedResult = this.responseData.predictedTagName.toLowerCase();
+      this.responseData.prediction.forEach(prediction => {
+        if (prediction.tagName.toLowerCase() === predictedResult)
+        {
+          this.predictProbability = prediction.probability;
+          return; //End the loop
+        }
+      })
     
       /*==============================================================
       This section is to load the uploaded image onto the webpage 
@@ -132,8 +154,6 @@ export default {
       }
       
       console.log(this.responseData) //Returns a proper JSON object
-      console.log(this.responseData.predictedTagName) //returns 'With Mask'
-      console.log(this.responseData.prediction[0]) //Returns a JSON with probability and Tag name
     }
 
   }
