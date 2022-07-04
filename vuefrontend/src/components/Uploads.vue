@@ -26,7 +26,7 @@
       </div>
 
       
-      <!-- import from results later [Might scrap this as internal vue issue occurred] -->
+      <!-- import from results later [Scrapped, but file there for future self-reference] -->
       <!--
       <div v-if='this.responseData !==null && this.selectedFile !== null'>
         <Results resData = 'responseData'  selectedImage = 'selectedFile'/> 
@@ -82,9 +82,10 @@ export default {
       ==============================================================*/
       const myBlob = new Blob([this.selectedFile], {type: this.selectedFile.type})
       const file = new File([myBlob], this.selectedFile.name)
+      const AzureAppFunc= 'https://junecapstonedeploy.azurewebsites.net/api/classify?code=fVWmyxCFxYEsM27JqO14YHau7U7NBL_deO0ZhQ0m3P1gAzFudmTUZQ=='
 
       //post request
-      const res = await fetch ('http://localhost:7071/api/classify', {
+      const res = await fetch (AzureAppFunc, {
         method: 'POST',
         body: file,
         redirect: 'follow'

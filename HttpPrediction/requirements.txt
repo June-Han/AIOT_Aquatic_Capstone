@@ -4,3 +4,4 @@ azure-functions
 tensorflow==1.14
 Pillow
 requests
+flask
