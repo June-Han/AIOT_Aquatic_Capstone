@@ -82,7 +82,7 @@ export default {
       ==============================================================*/
       const myBlob = new Blob([this.selectedFile], {type: this.selectedFile.type})
       const file = new File([myBlob], this.selectedFile.name)
-      const AzureAppFunc= 'https://junecapstonedeploy.azurewebsites.net/api/classify?code=fVWmyxCFxYEsM27JqO14YHau7U7NBL_deO0ZhQ0m3P1gAzFudmTUZQ=='
+      const AzureAppFunc= 'http://localhost:7071/api/classify'
 
       //post request
       const res = await fetch (AzureAppFunc, {
