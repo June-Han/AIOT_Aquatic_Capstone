@@ -1,1 +1,0 @@
-This is the main folder that you'll be working in for this tutorial.

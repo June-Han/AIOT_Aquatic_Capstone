@@ -1,7 +1,0 @@
-# Do not include azure-functions-worker as it may conflict with the Azure Functions platform
-# Works with python function 3.7.9
-azure-functions
-tensorflow==1.14
-Pillow
-requests
-flask
