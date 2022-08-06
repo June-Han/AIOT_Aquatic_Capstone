@@ -5,12 +5,15 @@ Final Year Project - AIOT solution for Coral Bleaching
 ## Deployment
 Both the Backend and Frontend has been deployed. <br/> <br/>
 Frontend is deployed using Azure static web apps: <br/>
-https://icy-glacier-01a85bd10.1.azurestaticapps.net/
+https://icy-glacier-01a85bd10.1.azurestaticapps.net/ (Facing error at the moment)
+
+Github Pages (The backend Azure Function will expire with my ambassador membership as I graduate.
+https://june-han.github.io/AIOT_Aquatic_Capstone/
 
 Backend is deployed as an Azure Function: <br/>
 https://junecapstonedeploy.azurewebsites.net/api/classify
 
-The code is not included for the time being for access to Azure Function.
+The code can be run on localhost.
 
 ## Targeting UN Goals
 1. Clean Water and Sanitation
